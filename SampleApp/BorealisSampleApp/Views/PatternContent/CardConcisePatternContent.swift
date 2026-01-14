@@ -90,11 +90,11 @@ private struct PreviewWrapper: View {
     
     let cardConciseData: [CardDataItem] = [
         CardDataItem(
-            headline: AccordionHeadline(
+            headline: Headline(
                 small: "Explore Honolulu's Island Bliss",
                 large: "Explore Honolulu's Island Bliss"
             ),
-            description: AccordionDescription(
+            description: Description(
                 small: "Immerse yourself in Honolulu's stunning beaches, rich Hawaiian culture, and breathtaking natural beauty for an unforgettable island adventure. 🌺",
                 large: "<html><p>Immerse yourself in Honolulu's stunning beaches, rich Hawaiian culture, and breathtaking natural beauty for an <strong>unforgettable</strong> island adventure. 🌺</p></html>"
             ),
@@ -113,11 +113,11 @@ private struct PreviewWrapper: View {
             )
         ),
         CardDataItem(
-            headline: AccordionHeadline(
+            headline: Headline(
                 small: "Earn More Alaska Miles: Travel to 500+ Global Destinations",
                 large: "Earn More Alaska Miles: Travel to 500+ Global Destinations and Convert Your Adventures into Flights, Perks, and Upgrades with Mileage Plan"
             ),
-            description: AccordionDescription(
+            description: Description(
                 small: "Discover amazing destinations worldwide and earn miles with every trip. Your adventures can become flights, perks, and upgrades.",
                 large: "<html><p>Discover amazing destinations worldwide and earn miles with every trip. Your adventures can become flights, perks, and upgrades.</p></html>"
             ),

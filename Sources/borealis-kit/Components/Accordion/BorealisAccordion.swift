@@ -460,8 +460,8 @@ public struct AccordionItem: Identifiable {
     }
 }
 
-/// Accordion Headline Model (UCM)
-public struct AccordionHeadline {
+/// Headline Model (UCM) - Used across Accordion and Card components
+public struct Headline {
     public let small: String
     public let large: String
     
@@ -471,8 +471,8 @@ public struct AccordionHeadline {
     }
 }
 
-/// Accordion Description Model (UCM)
-public struct AccordionDescription {
+/// Description Model (UCM) - Used across Accordion and Card components
+public struct Description {
     public let small: String
     public let large: String // May contain HTML
     

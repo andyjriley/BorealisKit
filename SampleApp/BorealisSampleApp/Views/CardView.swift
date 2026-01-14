@@ -10,11 +10,11 @@ struct CardView: View {
     
     // Static card data
     let cardData: CardDataItem = CardDataItem(
-        headline: AccordionHeadline(
+        headline: Headline(
             small: "Explore Honolulu's Island Bliss",
             large: "Explore Honolulu's Island Bliss"
         ),
-        description: AccordionDescription(
+        description: Description(
             small: "Immerse yourself in Honolulu's stunning beaches, rich Hawaiian culture, and breathtaking natural beauty for an unforgettable island adventure. 🌺",
             large: "<html><p>Immerse yourself in Honolulu's stunning beaches, rich Hawaiian culture, and breathtaking natural beauty for an <strong>unforgettable</strong> island adventure. 🌺</p></html>"
         ),

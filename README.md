@@ -81,11 +81,11 @@ struct MyView: View {
 ```swift
 struct MyView: View {
     let cardData = CardDataItem(
-        headline: AccordionHeadline(
+        headline: Headline(
             small: "Card Title",
             large: "Card Title"
         ),
-        description: AccordionDescription(
+        description: Description(
             small: "Card description",
             large: "Card description"
         ),

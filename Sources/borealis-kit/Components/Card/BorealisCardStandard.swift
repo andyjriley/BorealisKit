@@ -94,9 +94,9 @@ public struct FlightDealData {
 /// Card UCM Data Model
 public struct CardUCMData: Identifiable {
     public let id: UUID
-    public let headline: AccordionHeadline
+    public let headline: Headline
     public let subheadline: CardSubheadline?
-    public let description: AccordionDescription
+    public let description: Description
     public let fineprint: CardFineprint?
     public let media: CardMedia?
     public let action: CardAction?
@@ -106,9 +106,9 @@ public struct CardUCMData: Identifiable {
     
     public init(
         id: UUID = UUID(),
-        headline: AccordionHeadline,
+        headline: Headline,
         subheadline: CardSubheadline? = nil,
-        description: AccordionDescription,
+        description: Description,
         fineprint: CardFineprint? = nil,
         media: CardMedia? = nil,
         action: CardAction? = nil,
@@ -690,11 +690,11 @@ private struct BorealisButtonStyle: ButtonStyle {
 
 private struct PreviewWrapper: View {
     let cardData: CardDataItem = CardDataItem(
-        headline: AccordionHeadline(
+        headline: Headline(
             small: "Explore Honolulu's Island Bliss",
             large: "Explore Honolulu's Island Bliss"
         ),
-        description: AccordionDescription(
+        description: Description(
             small: "Immerse yourself in Honolulu's stunning beaches, rich Hawaiian culture, and breathtaking natural beauty for an unforgettable island adventure. 🌺",
             large: "<html><p>Immerse yourself in Honolulu's stunning beaches, rich Hawaiian culture, and breathtaking natural beauty for an <strong>unforgettable</strong> island adventure. 🌺</p></html>"
         ),

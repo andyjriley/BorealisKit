@@ -55,16 +55,16 @@ public struct CardTeaser {
 /// Card Data Model for UCM (Universal Content Model)
 public struct CardDataItem: Identifiable {
     public let id: UUID
-    public let headline: AccordionHeadline // Reuse from Accordion
-    public let description: AccordionDescription // Reuse from Accordion
+    public let headline: Headline
+    public let description: Description
     public let teaser: CardTeaser?
     public let media: CardMedia?
     public let action: CardAction?
     
     public init(
         id: UUID = UUID(),
-        headline: AccordionHeadline,
-        description: AccordionDescription,
+        headline: Headline,
+        description: Description,
         teaser: CardTeaser? = nil,
         media: CardMedia? = nil,
         action: CardAction? = nil
@@ -90,8 +90,8 @@ public struct CardDataItem: Identifiable {
         let descLarge = descriptionDict["small"] as? String ?? descSmall
         
         self.id = UUID()
-        self.headline = AccordionHeadline(small: headlineSmall, large: headlineLarge)
-        self.description = AccordionDescription(small: descSmall, large: descLarge)
+        self.headline = Headline(small: headlineSmall, large: headlineLarge)
+        self.description = Description(small: descSmall, large: descLarge)
         
         // Parse teaser
         if let teaserDict = dictionary["teaser"] as? [String: Any] {
@@ -385,11 +385,11 @@ private struct CardConciseButtonStyle: ButtonStyle {
 @available(iOS 15.0, *)
 private struct PreviewWrapper: View {
     let sampleCardData = CardDataItem(
-        headline: AccordionHeadline(
+        headline: Headline(
             small: "Explore Honolulu's Island Bliss",
             large: "Explore Honolulu's Island Bliss"
         ),
-        description: AccordionDescription(
+        description: Description(
             small: "Immerse yourself in Honolulu's stunning beaches, rich Hawaiian culture, and breathtaking natural beauty for an unforgettable island adventure. 🌺",
             large: "<html><p>Immerse yourself in Honolulu's stunning beaches, rich Hawaiian culture, and breathtaking natural beauty for an <strong>unforgettable</strong> island adventure. 🌺</p></html>"
         ),
