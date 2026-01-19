@@ -34,6 +34,12 @@ struct ComponentDetailView: View {
         switch componentType {
         case .button:
             ButtonComponentContent()
+        case .text:
+            TextComponentContent()
+        case .chip:
+            ChipComponentContent()
+        case .progressIndicator:
+            ProgressIndicatorComponentContent()
         }
     }
 }
