@@ -1,17 +1,53 @@
 import SwiftUI
 
-/// Borealis Button Component - UCM Pattern
+/// A versatile button component with multiple variants and sizes.
+///
+/// Use `BorealisButton` to create consistent, accessible buttons throughout your application.
+/// The button supports four visual variants (primary, secondary, outline, text) and three sizes (small, medium, large).
+///
+/// ## Topics
+///
+/// ### Creating a Button
+/// - ``init(_:variant:size:action:)``
+///
+/// ### Button Variants
+/// - ``Variant/primary``
+/// - ``Variant/secondary``
+/// - ``Variant/outline``
+/// - ``Variant/text``
+///
+/// ### Button Sizes
+/// - ``Size/small``
+/// - ``Size/medium``
+/// - ``Size/large``
+///
+/// ## Examples
+///
+/// ```swift
+/// BorealisButton("Submit", variant: .primary) {
+///     // Handle button tap
+/// }
+/// ```
 public struct BorealisButton: View {
+    /// The visual style of the button.
     public enum Variant {
+        /// Primary button with filled background.
         case primary
+        /// Secondary button with outlined style.
         case secondary
+        /// Outline button with border and transparent background.
         case outline
+        /// Text-only button with no background or border.
         case text
     }
     
+    /// The size of the button.
     public enum Size {
+        /// Small button with compact padding.
         case small
+        /// Medium button with standard padding (default).
         case medium
+        /// Large button with generous padding.
         case large
         
         var padding: EdgeInsets {
@@ -37,11 +73,22 @@ public struct BorealisButton: View {
         }
     }
     
+    /// The button's title text.
     let title: String
+    /// The visual variant of the button.
     let variant: Variant
+    /// The size of the button.
     let size: Size
+    /// The action to perform when the button is tapped.
     let action: () -> Void
     
+    /// Creates a new button with the specified title, variant, size, and action.
+    ///
+    /// - Parameters:
+    ///   - title: The text to display on the button.
+    ///   - variant: The visual style of the button. Defaults to `.primary`.
+    ///   - size: The size of the button. Defaults to `.medium`.
+    ///   - action: The closure to execute when the button is tapped.
     public init(
         _ title: String,
         variant: Variant = .primary,

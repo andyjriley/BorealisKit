@@ -1,8 +1,25 @@
 import SwiftUI
 
-/// Theme options for Borealis Design System
+/// Theme options for the Borealis Design System.
+///
+/// Themes control the color palette used throughout the application.
+/// Each theme provides a distinct set of primary, secondary, and accent colors.
+///
+/// ## Available Themes
+///
+/// - ``alaska``: Alaska theme with navy blue and teal colors
+/// - ``hawaii``: Hawaii theme with purple and magenta colors
+///
+/// ## Examples
+///
+/// ```swift
+/// let themeManager = BorealisThemeManager(theme: .alaska)
+/// themeManager.currentTheme = .hawaii
+/// ```
 public enum BorealisTheme: String, CaseIterable {
+    /// Alaska theme with navy blue (#003A8F) and teal (#00A6A6) colors.
     case alaska = "Alaska"
+    /// Hawaii theme with purple (#4B1E6D) and magenta (#C81E78) colors.
     case hawaii = "Hawaii"
     
     // MARK: - Alaska Colors
@@ -161,9 +178,28 @@ public enum BorealisTheme: String, CaseIterable {
 }
 
 /// Theme Manager - ObservableObject to manage current theme
+/// Manages the current theme for the Borealis Design System.
+///
+/// Use `BorealisThemeManager` to control which theme is active in your application.
+/// The theme manager is an `ObservableObject`, so views automatically update when the theme changes.
+///
+/// ## Examples
+///
+/// ```swift
+/// @StateObject private var themeManager = BorealisThemeManager(theme: .alaska)
+///
+/// // Change theme
+/// themeManager.currentTheme = .hawaii
+/// ```
 public class BorealisThemeManager: ObservableObject {
+    /// The currently active theme.
+    ///
+    /// When this value changes, all theme-aware components automatically update their colors.
     @Published public var currentTheme: BorealisTheme = .alaska
     
+    /// Creates a new theme manager with the specified initial theme.
+    ///
+    /// - Parameter theme: The initial theme to use. Defaults to `.alaska`.
     public init(theme: BorealisTheme = .alaska) {
         self.currentTheme = theme
     }

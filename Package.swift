@@ -17,7 +17,10 @@ let package = Package(
     targets: [
         .target(
             name: "BorealisKit",
-            dependencies: []),
+            dependencies: [],
+            resources: [
+                .process("Documentation.docc")
+            ]),
         .testTarget(
             name: "BorealisKitTests",
             dependencies: ["BorealisKit"]),
