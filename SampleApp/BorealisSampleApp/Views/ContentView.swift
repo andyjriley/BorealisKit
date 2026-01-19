@@ -2,6 +2,7 @@ import SwiftUI
 import BorealisKit
 
 struct ContentView: View {
+    @EnvironmentObject var themeManager: BorealisThemeManager
     @State private var selectedTab = 0
     
     var body: some View {

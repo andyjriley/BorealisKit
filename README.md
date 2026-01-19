@@ -2,6 +2,17 @@
 
 BorealisKit is an iOS framework that brings the UCM (User Component Model) Patterns from the Borealis Component Library to native iOS applications. Built with SwiftUI, it provides a comprehensive set of reusable UI components following modern design principles.
 
+## Documentation
+
+For comprehensive documentation, design guidelines, and component specifications, visit the [Borealis Component Library Documentation](https://delightful-glacier-04816361e.5.azurestaticapps.net/?path=/docs/borealis-component-library--docs).
+
+The documentation includes:
+- Complete component API reference
+- Design system guidelines
+- Usage examples and best practices
+- UCM pattern specifications
+- Accessibility guidelines
+
 ## Features
 
 - 🎨 **Design System**: Consistent colors, typography, spacing, corner radius, and shadows

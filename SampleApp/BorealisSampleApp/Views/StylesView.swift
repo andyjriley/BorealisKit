@@ -3,6 +3,9 @@ import BorealisKit
 
 
 struct StylesView: View {
+    @EnvironmentObject var themeManager: BorealisThemeManager
+    @State private var showThemePopover = false
+    
     // Typography Controls
     @State private var selectedFontSize: CGFloat = BorealisTypography.fontSizeS
     @State private var selectedFontWeight: Font.Weight = .regular
@@ -63,6 +66,90 @@ struct StylesView: View {
             }
             .navigationTitle("Styles")
             .background(BorealisColors.background)
+            .id(themeManager.currentTheme) // Force view update on theme change
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        showThemePopover = true
+                    }) {
+                        HStack(spacing: BorealisSpacing.xs) {
+                            Image(systemName: "paintpalette.fill")
+                            Text(themeManager.currentTheme.rawValue)
+                                .font(BorealisTypography.body())
+                        }
+                        .foregroundColor(BorealisColors.primary)
+                    }
+                    .popover(isPresented: $showThemePopover, attachmentAnchor: .point(.top)) {
+                        themePopoverContent
+                            .presentationCompactAdaptation(.popover)
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: - Theme Popover
+    
+    private var themePopoverContent: some View {
+        VStack(spacing: BorealisSpacing.sm) {
+            ForEach(BorealisTheme.allCases, id: \.self) { theme in
+                Button(action: {
+                    themeManager.currentTheme = theme
+                    showThemePopover = false
+                }) {
+                    HStack(spacing: BorealisSpacing.sm) {
+                        // Color preview swatches
+                        HStack(spacing: 2) {
+                            Circle()
+                                .fill(themeColor(for: theme, isPrimary: true))
+                                .frame(width: 16, height: 16)
+                            Circle()
+                                .fill(themeColor(for: theme, isPrimary: false))
+                                .frame(width: 16, height: 16)
+                        }
+                        
+                        Text(theme.rawValue)
+                            .font(BorealisTypography.bodySmall())
+                            .fontWeight(themeManager.currentTheme == theme ? .semibold : .regular)
+                            .foregroundColor(BorealisColors.textPrimary)
+                        
+                        Spacer()
+                        
+                        if themeManager.currentTheme == theme {
+                            Image(systemName: "checkmark.circle.fill")
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundColor(BorealisColors.primary)
+                        }
+                    }
+                    .padding(.horizontal, BorealisSpacing.sm)
+                    .padding(.vertical, BorealisSpacing.sm)
+                    .background(
+                        themeManager.currentTheme == theme ?
+                        BorealisColors.primary.opacity(0.08) :
+                        Color.clear
+                    )
+                    .cornerRadius(BorealisRadius.md)
+                }
+                .buttonStyle(PlainButtonStyle())
+            }
+        }
+        .padding(BorealisSpacing.sm)
+        .background(BorealisColors.surface)
+        .cornerRadius(BorealisRadius.lg)
+        .shadow(
+            color: BorealisShadow.sm.color,
+            radius: BorealisShadow.sm.radius,
+            x: 0,
+            y: BorealisShadow.sm.y
+        )
+    }
+    
+    private func themeColor(for theme: BorealisTheme, isPrimary: Bool) -> Color {
+        switch theme {
+        case .alaska:
+            return isPrimary ? Color("003A8F") : Color("00A6A6")
+        case .hawaii:
+            return isPrimary ? Color("4B1E6D") : Color("C81E78")
         }
     }
     
