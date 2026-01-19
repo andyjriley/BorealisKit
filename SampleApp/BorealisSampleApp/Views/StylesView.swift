@@ -4,7 +4,11 @@ import BorealisKit
 
 struct StylesView: View {
     @EnvironmentObject var themeManager: BorealisThemeManager
+    @Environment(\.colorScheme) var systemColorScheme
     @State private var showThemePopover = false
+    @State private var showColorSchemePopover = false
+    @State private var showDarkModeAlert = false
+    @State private var colorSchemeOverride: ColorScheme? = nil
     
     // Typography Controls
     @State private var selectedFontSize: CGFloat = BorealisTypography.fontSizeS
@@ -67,8 +71,23 @@ struct StylesView: View {
             .navigationTitle("Styles")
             .background(BorealisColors.background)
             .id(themeManager.currentTheme) // Force view update on theme change
+            .preferredColorScheme(.light) // Always keep in light mode until dark mode is ready
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    // Color Scheme Toggle
+                    Button(action: {
+                        showColorSchemePopover = true
+                    }) {
+                        Image(systemName: colorSchemeIcon)
+                            .font(BorealisTypography.body())
+                            .foregroundColor(BorealisColors.primary)
+                    }
+                    .popover(isPresented: $showColorSchemePopover, attachmentAnchor: .point(.top)) {
+                        colorSchemePopoverContent
+                            .presentationCompactAdaptation(.popover)
+                    }
+                    
+                    // Theme Switcher
                     Button(action: {
                         showThemePopover = true
                     }) {
@@ -84,6 +103,11 @@ struct StylesView: View {
                             .presentationCompactAdaptation(.popover)
                     }
                 }
+            }
+            .alert("Dark Mode Coming Soon", isPresented: $showDarkModeAlert) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                Text("Dark mode support is currently in development and will be available in a future update.")
             }
         }
     }
@@ -151,6 +175,77 @@ struct StylesView: View {
         case .hawaii:
             return isPrimary ? Color("4B1E6D") : Color("C81E78")
         }
+    }
+    
+    // MARK: - Color Scheme
+    
+    private var colorSchemeIcon: String {
+        let currentScheme = colorSchemeOverride ?? systemColorScheme
+        return currentScheme == .dark ? "moon.fill" : "sun.max.fill"
+    }
+    
+    private var colorSchemePopoverContent: some View {
+        VStack(spacing: BorealisSpacing.sm) {
+            ForEach([ColorScheme.light, ColorScheme.dark], id: \.self) { scheme in
+                Button(action: {
+                    let currentScheme = colorSchemeOverride ?? systemColorScheme
+                    showColorSchemePopover = false
+                    
+                    if scheme != currentScheme {
+                        colorSchemeOverride = scheme
+                        // Show alert when dark mode is selected
+                        if scheme == .dark {
+                            // Delay alert to allow popover to dismiss first
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                showDarkModeAlert = true
+                            }
+                        }
+                    }
+                }) {
+                    HStack(spacing: BorealisSpacing.sm) {
+                        Image(systemName: scheme == .dark ? "moon.fill" : "sun.max.fill")
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundColor(BorealisColors.textPrimary)
+                            .frame(width: 20)
+                        
+                        Text(scheme == .dark ? "Dark" : "Light")
+                            .font(BorealisTypography.bodySmall())
+                            .fontWeight(currentColorScheme == scheme ? .semibold : .regular)
+                            .foregroundColor(BorealisColors.textPrimary)
+                        
+                        Spacer()
+                        
+                        if currentColorScheme == scheme {
+                            Image(systemName: "checkmark.circle.fill")
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundColor(BorealisColors.primary)
+                        }
+                    }
+                    .padding(.horizontal, BorealisSpacing.sm)
+                    .padding(.vertical, BorealisSpacing.sm)
+                    .background(
+                        currentColorScheme == scheme ?
+                        BorealisColors.primary.opacity(0.08) :
+                        Color.clear
+                    )
+                    .cornerRadius(BorealisRadius.md)
+                }
+                .buttonStyle(PlainButtonStyle())
+            }
+        }
+        .padding(BorealisSpacing.sm)
+        .background(BorealisColors.surface)
+        .cornerRadius(BorealisRadius.lg)
+        .shadow(
+            color: BorealisShadow.sm.color,
+            radius: BorealisShadow.sm.radius,
+            x: 0,
+            y: BorealisShadow.sm.y
+        )
+    }
+    
+    private var currentColorScheme: ColorScheme {
+        colorSchemeOverride ?? systemColorScheme
     }
     
     // MARK: - Colors Section
